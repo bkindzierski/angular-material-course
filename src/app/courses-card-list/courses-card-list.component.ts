@@ -10,11 +10,12 @@ import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 })
 export class CoursesCardListComponent implements OnInit {
 
-    @Input()
-    courses: Course[];
+    @Input() courses: Course[];
 
     constructor() {
+
     }
+
 
     ngOnInit() {
 

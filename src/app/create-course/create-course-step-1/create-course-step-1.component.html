@@ -1,5 +1,77 @@
 <div [formGroup]="form" class="course-details-form">
 
+    <mat-form-field>
+    <!-- <mat-form-field floatLabel="always"> -->
+        <mat-label >Course Title</mat-label>
+        <input matInput #title formControlName="title">
+        <!-- <span matPrefix>+32</span>
+        <span matSuffix>.00</span> -->
+        <mat-hint align="end">
+            {{title.value.length}} /60
+        </mat-hint>
+        @if (courseTitle.errors?.minlength) {
+            <!-- <mat-error *ngIf="courseTitle.errors?.minlength"> -->
+            <mat-error>
+                A minimum length of 5 characters is required.
+            </mat-error>
+        }
+      
+    </mat-form-field>
+
+    <!-- **different options for input appearances ** -->
+    <!-- <mat-form-field appearance="fill">
+        <mat-label>Course Title</mat-label>
+        <input matInput  formControlName="title">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Course Title</mat-label>
+        <input matInput  formControlName="title">
+    </mat-form-field> -->
+
+    <mat-radio-group class="course-type" formControlName="courseType">
+        <mat-radio-button [disabled]="true" value="free">Free</mat-radio-button>
+        <mat-radio-button value="Premium">Premium</mat-radio-button>
+    </mat-radio-group>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Select Category</mat-label>
+
+        <mat-select #category formControlName="category" multiple>
+
+            <mat-option>None</mat-option>
+            <mat-optgroup label="Beginners">
+                <mat-option value="newprogramming">New To Programming</mat-option>
+                <mat-option value="newjavascript">New To Javascript</mat-option>
+                <mat-option value="newangular">New To Angular</mat-option>
+            </mat-optgroup>
+
+            <!-- <mat-option value="beginner">Beginners</mat-option> -->
+            <mat-option value="intermidiate">Intermediate</mat-option>
+            <mat-option value="advanced">Advanced</mat-option>
+
+        </mat-select>
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label >Release Date</mat-label>
+        <input matInput formControlName="releasedAt" [matDatepicker]="releaseAtPicker">
+        
+        <mat-datepicker-toggle matSuffix [for]="releaseAtPicker"></mat-datepicker-toggle>
+
+        <mat-datepicker #releaseAtPicker [dateClass]="dateClass">
+        </mat-datepicker>
+    </mat-form-field>
+
+    <mat-checkbox color="primary" formControlName="downloadsAllowed" >
+        Downloads allowed?
+    </mat-checkbox>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="longDescription" cdkTextareaAutosize [cdkAutosizeMinRows]="2" [cdkAutosizeMaxRows]="5"></textarea>
+    </mat-form-field>
 
 </div>
 
