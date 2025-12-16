@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA,  MatDialog,  MatDialogConfig,  MatDialogRef} from '@ang
 import {Course} from "../model/course";
 import {FormBuilder, Validators, FormGroup} from "@angular/forms";
 import * as moment from 'moment';
+import { validateHorizontalPosition } from '@angular/cdk/overlay';
 
 @Component({
     selector: 'course-dialog',
@@ -12,14 +13,43 @@ import * as moment from 'moment';
 })
 export class CourseDialogComponent implements OnInit {
 
-    constructor(private fb: FormBuilder) {
+    description: string;
+    form = this.fb.group({
+        description: [this.course.description, Validators.required],
+        category: [this.course.category, Validators.required],
+        releasedAt: [new Date(), Validators.required],
+        longDescription: [this.course.longDescription, Validators.required]
+    });
 
-
+    constructor(private fb: FormBuilder, 
+                @Inject(MAT_DIALOG_DATA) private course: Course,
+                private diaogRef: MatDialogRef<CourseDialogComponent>) {
+                
+                    this.description = course.description;
     }
 
     ngOnInit() {
 
     }
 
+    close(){
+        this.diaogRef.close();
+    }
+
+    save(){
+        this.diaogRef.close(this.form.value)
+    }
 }
 
+export function openEditCourseDialog(dialog:MatDialog, course: Course){
+
+    const config = new MatDialogConfig();
+    config.disableClose = true;
+    config.autoFocus =  true;
+    config.data = {
+        ...course
+    };
+    const dialogRef = dialog.open(CourseDialogComponent,config);
+    return dialogRef.afterClosed();
+
+}

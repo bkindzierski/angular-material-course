@@ -1,3 +1,7 @@
+@use '../../mixins' as m;
+
+@include m.drag-drop();
+
 
 .drag-drop-container {
   font-family: "Roboto";
