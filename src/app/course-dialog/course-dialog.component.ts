@@ -2,8 +2,8 @@ import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {MAT_DIALOG_DATA,  MatDialog,  MatDialogConfig,  MatDialogRef} from '@angular/material/dialog';
 import {Course} from "../model/course";
 import {FormBuilder, Validators, FormGroup} from "@angular/forms";
-import * as moment from 'moment';
-import { validateHorizontalPosition } from '@angular/cdk/overlay';
+
+
 
 @Component({
     selector: 'course-dialog',
@@ -46,6 +46,9 @@ export function openEditCourseDialog(dialog:MatDialog, course: Course){
     const config = new MatDialogConfig();
     config.disableClose = true;
     config.autoFocus =  true;
+    config.panelClass = "modal-panel"
+    config.backdropClass = "backdrop-modal-panel";
+
     config.data = {
         ...course
     };
